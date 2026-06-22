@@ -3,153 +3,368 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recart · Built for Brands That Win</title>
+<title>Recart · Our Live Popups</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: #060d1e; }
+
   .screen {
     width: 100vw; height: 100vh;
-    background: #060d1e; font-family: 'Inter', sans-serif;
-    display: grid; grid-template-columns: 42% 1fr;
-    position: relative; overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    display: grid; grid-template-columns: 26% 1fr;
+    overflow: hidden;
   }
-  .bg-canvas { position: absolute; inset: 0; z-index: 0; }
-  .left, .right { position: relative; z-index: 1; }
+
+  /* ── LEFT ── */
   .left {
     display: flex; flex-direction: column;
+    padding: 5vh 4.5vw;
     border-right: 1px solid rgba(255,255,255,0.06);
-    padding: 4% 5%;
+    position: relative; z-index: 1;
   }
-  .logo-wrap { margin-bottom: clamp(10px,1.6vh,18px); }
   .logo-wrap svg { height: clamp(18px,2.2vw,30px); width: auto; }
-  .top-label { font-size: clamp(8px,0.82vw,11px); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0375FF; margin-bottom: clamp(5px,0.8vh,10px); }
-  .section-title { font-size: clamp(26px,4.8vw,68px); font-weight: 900; color: #fff; line-height: 0.9; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: clamp(10px,1.5vh,18px); }
-  .anchor-stat { margin-bottom: clamp(10px,1.5vh,18px); }
-  .anchor-num { font-size: clamp(28px,4vw,58px); font-weight: 900; color: #0375FF; line-height: 1; }
-  .anchor-lbl { font-size: clamp(10px,1vw,14px); font-weight: 500; color: rgba(255,255,255,0.38); margin-top: 3px; }
-  .quote-box { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-left: 3px solid #0375FF; border-radius: 6px; padding: clamp(10px,1.5vh,18px) clamp(12px,1.5vw,18px); display: flex; flex-direction: column; justify-content: center; gap: 8px; margin-bottom: clamp(10px,1.4vh,14px); }
-  .quote-text { font-size: clamp(10px,1.05vw,15px); font-weight: 400; color: rgba(255,255,255,0.58); line-height: 1.55; font-style: italic; }
-  .quote-author { font-size: clamp(9px,0.88vw,12px); font-weight: 700; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.08em; }
-  .quote-co { color: #0375FF; }
-  .left-bottom { display: flex; align-items: center; }
-  .clock { font-size: clamp(9px,0.85vw,12px); color: rgba(255,255,255,0.22); letter-spacing: 0.05em; }
-  .right { display: flex; flex-direction: column; padding: 4% 4.5%; gap: clamp(8px,1.2vh,14px); }
-  .spotlight { background: rgba(3,117,255,0.06); border: 1px solid rgba(3,117,255,0.2); border-radius: 8px; padding: clamp(10px,1.4vh,16px) clamp(12px,1.5vw,18px); flex: 0 0 auto; }
-  .spotlight-label { font-size: clamp(7px,0.72vw,10px); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0375FF; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
-  .spotlight-dot { width: 5px; height: 5px; background: #0375FF; border-radius: 50%; animation: blink 2s infinite; }
-  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
-  .spotlight-client { font-size: clamp(14px,1.8vw,26px); font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 3px; }
-  .spotlight-stat { font-size: clamp(20px,2.8vw,40px); font-weight: 900; color: #0375FF; line-height: 1; }
-  .spotlight-desc { font-size: clamp(9px,0.88vw,12px); font-weight: 500; color: rgba(255,255,255,0.38); margin-top: 2px; }
-  .clients-label { font-size: clamp(7px,0.72vw,10px); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.22); }
-  .brands-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: clamp(5px,0.8vh,9px); flex: 1; }
-  .brand-card { border-radius: 6px; display: flex; align-items: center; justify-content: center; padding: clamp(6px,1vh,12px) 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); transition: all 0.5s ease; }
-  .brand-card.active { background: rgba(3,117,255,0.1); border-color: rgba(3,117,255,0.35); }
-  .brand-name { font-size: clamp(9px,0.95vw,14px); font-weight: 700; color: rgba(255,255,255,0.38); text-align: center; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; transition: color 0.5s ease; }
-  .brand-card.active .brand-name { color: #fff; }
+  .top-label {
+    font-size: clamp(8px,0.82vw,11px); font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: #0375FF; margin-top: clamp(12px,2vh,22px);
+  }
+  .main-title {
+    font-size: clamp(28px,5vw,70px); font-weight: 900;
+    color: #fff; line-height: 0.9;
+    text-transform: uppercase; letter-spacing: -0.03em;
+    margin-top: clamp(8px,1.2vh,14px);
+  }
+  .main-title em { color: #0375FF; font-style: normal; display: block; }
+  .divider {
+    width: 36px; height: 3px; background: #0375FF;
+    border-radius: 2px; margin: clamp(12px,2vh,22px) 0;
+  }
+  .stat-num {
+    font-size: clamp(20px,3vw,44px); font-weight: 900;
+    color: #0375FF; line-height: 1;
+  }
+  .stat-lbl {
+    font-size: clamp(8px,0.82vw,11px); font-weight: 500;
+    color: rgba(255,255,255,0.32); margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .clock {
+    margin-top: auto;
+    font-size: clamp(9px,0.88vw,12px);
+    color: rgba(255,255,255,0.25); letter-spacing: 0.05em;
+  }
+
+  /* ── RIGHT ── */
+  .right {
+    display: flex; align-items: center;
+    padding: 3.5vh 3vw;
+    gap: 1.6%;
+    overflow: hidden;
+  }
+
+  .popup-slot {
+    flex: 1;
+    height: 84vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ── POPUP CARDS ── */
+  .popup-card {
+    width: 100%; height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .popup-card.fade-out {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    pointer-events: none;
+  }
+  .popup-card.fade-in-start {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+
+  .pc-inner {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 7% 8%; gap: 3.5%;
+    position: relative; overflow: hidden;
+  }
+  .pc-brand-name {
+    font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; text-align: center; line-height: 1.2;
+    font-size: clamp(10px,1.1vw,16px);
+  }
+  .pc-headline {
+    text-align: center; line-height: 1.05;
+  }
+  .pc-headline .small {
+    display: block;
+    font-size: clamp(9px,1vw,14px); font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 3%;
+  }
+  .pc-headline .big {
+    display: block;
+    font-size: clamp(18px,2.8vw,42px); font-weight: 900;
+    text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .pc-sub {
+    font-size: clamp(7px,0.8vw,11px);
+    text-align: center; line-height: 1.5; opacity: 0.7;
+  }
+  .mystery-boxes {
+    display: flex; gap: 5%;
+  }
+  .mystery-box {
+    width: clamp(34px,5.2vw,68px); height: clamp(34px,5.2vw,68px);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(16px,2.4vw,32px); font-weight: 900; color: #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  }
+  .pc-btn {
+    width: 100%; padding: clamp(7px,1.4vh,16px) 10px;
+    border-radius: 6px; cursor: default;
+    font-size: clamp(8px,0.9vw,13px); font-weight: 700;
+    text-align: center; text-transform: uppercase; letter-spacing: 0.07em;
+  }
+  .pc-btn-outline {
+    width: 100%; padding: clamp(6px,1.1vh,12px) 10px;
+    border-radius: 6px; cursor: default;
+    font-size: clamp(7px,0.78vw,11px); font-weight: 600;
+    text-align: center; text-transform: uppercase; letter-spacing: 0.07em;
+    background: transparent;
+  }
+  .pc-input {
+    display: flex; align-items: center;
+    background: #fff; border-radius: 100px;
+    padding: clamp(5px,1vh,12px) clamp(8px,1.2vw,16px);
+    width: 100%; gap: 6px; color: #bbb;
+    font-size: clamp(7px,0.8vw,11px);
+  }
+  .pc-circle {
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(24px,3.6vw,52px);
+    width: clamp(68px,10vw,140px); height: clamp(68px,10vw,140px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
 <div class="screen">
-  <canvas class="bg-canvas" id="bgCanvas"></canvas>
   <div class="left">
-    <div class="logo-wrap"><svg width="1084" height="331" viewBox="0 0 1084 331" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0_3407_101)"> <path d="M156.604 -0.000551603C74.3478 0.255965 5.77231 65.2402 1.0695 147.326C-0.897132 181.528 8.16647 214.79 27.0632 243.177C44.4209 269.171 68.7045 289.179 97.4344 301.065L87.7722 325.177C86.5751 328.17 89.2258 331.334 92.3895 330.65L163.017 316.028C165.839 315.43 167.121 312.18 165.497 309.872L124.369 250.531C122.488 247.88 118.469 248.308 117.272 251.3L107.61 275.413C58.4438 254.892 26.7212 205.726 28.3458 152.456C30.5689 81.4008 90.1664 25.4801 161.136 27.6178C232.191 29.8409 288.112 89.4383 285.974 160.408C285.632 172.379 283.58 184.179 279.989 195.465L279.647 196.406C278.108 201.023 276.312 205.555 274.346 210.001L274.26 210.172C273.918 210.942 273.576 211.626 273.234 212.395L272.977 212.823C272.635 213.507 272.293 214.105 272.037 214.79L271.695 215.474C271.438 215.987 271.182 216.5 270.84 217.013L270.583 217.44C270.498 217.611 270.412 217.868 270.241 218.039C269.985 218.466 269.814 218.808 269.557 219.236L269.215 219.834C269.044 220.091 268.959 220.347 268.788 220.604C268.617 220.946 268.36 221.288 268.189 221.63L267.847 222.229C267.676 222.571 267.505 222.913 267.249 223.169C267.078 223.426 266.907 223.682 266.736 224.024L266.394 224.623C266.137 224.965 265.966 225.392 265.71 225.734C265.538 225.991 265.367 226.247 265.282 226.418L265.025 226.76C264.683 227.273 264.427 227.701 264.085 228.214C263.999 228.385 263.828 228.556 263.743 228.727L263.486 229.069C263.144 229.582 262.802 230.095 262.375 230.608L261.862 231.378C261.434 231.891 261.092 232.489 260.665 233.002L260.152 233.601C259.724 234.199 259.297 234.712 258.869 235.311L258.442 235.824C258.014 236.422 257.501 237.021 257.073 237.62L256.646 238.133C256.133 238.731 255.62 239.33 255.107 239.928L254.765 240.356C254.252 240.954 253.739 241.553 253.226 242.151L252.884 242.493C252.371 243.092 251.772 243.69 251.174 244.289L250.917 244.631C250.318 245.23 249.805 245.828 249.207 246.427C244.761 250.958 239.972 255.148 234.927 258.996L190.294 195.123V194.781V193.926H190.122C190.208 193.926 190.208 193.926 190.294 193.926V194.097C222.358 192.644 247.924 166.222 247.924 133.816C247.924 100.469 220.905 73.4488 187.557 73.4488H91.7055H78.9651C75.7159 73.4488 73.8348 77.04 75.7159 79.6907L89.3968 99.2715C90.1664 100.298 91.3635 100.982 92.6461 100.982H106.156H187.386C205.428 101.067 219.964 115.774 219.964 133.816C219.964 151.943 205.257 166.564 187.215 166.65H156.775H144.035C140.786 166.65 138.905 170.241 140.786 172.892L155.407 193.755L225.094 293.369C226.206 294.994 228.429 295.507 230.225 294.652C232.448 293.54 233.132 293.113 235.355 291.83L237.151 290.719C237.493 290.548 237.749 290.291 238.091 290.12L239.374 289.35C240.058 288.923 240.742 288.495 241.426 288.068L241.939 287.726C243.222 286.871 244.59 286.016 245.872 285.075L246.556 284.562C247.155 284.135 247.839 283.622 248.437 283.194L250.575 281.655C269.643 267.375 285.461 248.65 296.32 227.53L296.406 227.359C296.919 226.333 297.518 225.221 298.031 224.11L298.116 223.939C300.168 219.663 302.049 215.217 303.674 210.771L303.931 210.172C304.102 209.574 304.358 209.061 304.529 208.462L304.871 207.522C305.042 207.094 305.128 206.752 305.299 206.324C305.47 205.811 305.641 205.298 305.812 204.785L305.897 204.443C306.154 203.759 306.325 203.075 306.581 202.391C306.752 201.964 306.838 201.451 307.009 201.023L307.094 200.767C307.351 199.997 307.522 199.228 307.778 198.543C307.949 198.03 308.035 197.517 308.206 197.004C308.462 196.149 308.633 195.38 308.804 194.525C308.89 194.012 309.061 193.584 309.146 193.071C309.403 192.216 309.574 191.275 309.745 190.335L309.83 190.078C309.916 189.736 310.001 189.394 310.087 189.052C310.343 188.026 310.514 187 310.685 185.974L310.771 185.718C310.771 185.547 310.856 185.461 310.856 185.29L311.626 181.271H311.541C312.652 174.602 313.251 167.761 313.507 161.007C316.329 73.2777 245.359 -0.257068 156.604 -0.000551603Z" fill="#0375FF"/> <path d="M537.275 174.602V170.925C537.275 136.723 564.979 108.506 599.266 108.848C638.599 109.276 658.522 140.4 658.522 176.227C658.522 177.595 658.436 179.048 658.351 180.502C658.18 182.64 656.384 184.35 654.247 184.35H571.05C568.313 184.35 566.347 186.915 567.116 189.565C571.734 206.667 585.244 216.072 602.088 216.072C614.829 216.072 624.234 211.711 633.383 203.588C634.922 202.22 637.317 202.22 638.856 203.588L649.8 213.336C651.51 214.875 651.681 217.526 650.057 219.236C638.428 231.634 622.866 239.501 601.661 239.501C565.235 239.586 537.275 213.251 537.275 174.602ZM625.175 165.367C627.74 165.367 629.706 163.059 629.193 160.494C626.03 144.418 615.427 132.362 598.155 132.362C582.165 132.362 570.537 143.563 566.603 160.237C566.005 162.802 567.971 165.367 570.622 165.367H625.175Z" fill="rgba(255,255,255,0.92)"/> <path d="M673.058 174.859V174.346C673.058 138.775 700.59 108.848 738.299 108.848C759.932 108.848 774.125 116.287 785.498 127.489C787.122 129.028 787.208 131.593 785.669 133.303L773.27 146.556C771.731 148.181 769.081 148.267 767.456 146.727C759.504 139.117 750.782 133.987 738.128 133.987C717.264 133.987 701.873 152.029 701.873 173.833V174.346C701.873 196.663 717.264 214.448 739.325 214.448C751.466 214.448 760.787 209.489 769.081 201.793C770.705 200.339 773.185 200.339 774.724 201.879L786.267 213.336C787.892 214.961 787.892 217.526 786.353 219.151C774.639 231.293 760.53 239.587 737.956 239.587C700.59 239.587 673.058 210.429 673.058 174.859Z" fill="rgba(255,255,255,0.92)"/> <path d="M803.627 200.681V200.168C803.627 173.148 824.747 159.809 855.358 159.809C868.098 159.809 877.504 161.605 886.397 164.256C887.679 164.683 889.047 163.657 889.047 162.289V162.032C889.047 144.247 878.103 134.756 858.009 134.756C845.696 134.756 836.119 137.15 826.201 140.998C823.977 141.853 821.498 140.741 820.814 138.433L815.854 123.64C815.17 121.588 816.196 119.365 818.163 118.51C830.732 113.209 843.644 109.874 861.857 109.874C880.582 109.874 894.605 114.833 903.412 123.897C912.647 132.875 916.922 146.214 916.922 162.545V235.482C916.922 237.791 915.041 239.586 912.818 239.586H893.066C890.758 239.586 888.962 237.705 888.962 235.482V226.418C888.962 224.623 886.739 223.682 885.456 224.965C876.991 233.344 864.935 239.415 848.176 239.415C824.49 239.33 803.627 225.82 803.627 200.681ZM889.475 191.703V186.06C889.475 184.264 888.363 182.725 886.739 182.126C879.813 179.818 871.091 178.107 861.087 178.107C842.618 178.107 831.673 185.974 831.673 198.971V199.484C831.673 211.54 842.361 218.466 856.128 218.466C875.024 218.466 889.475 207.607 889.475 191.703Z" fill="rgba(255,255,255,0.92)"/> <path d="M1084 132.021V115.604C1084 113.295 1082.12 111.5 1079.89 111.5H1054.41C1052.1 111.5 1050.31 109.618 1050.31 107.395V77.6393C1050.31 75.3307 1048.43 73.535 1046.2 73.535H1025.77C1023.46 73.535 1021.66 75.4162 1021.66 77.6393V111.5V136.211V202.82C1021.66 230.352 1036.63 239.587 1057.75 239.587C1067.49 239.587 1074.85 237.706 1081.35 234.371C1082.71 233.687 1083.57 232.234 1083.57 230.694V215.902C1083.57 213.08 1080.75 211.114 1078.1 212.054C1074.16 213.337 1070.14 214.021 1065.78 214.021C1056.04 214.021 1050.39 209.489 1050.39 198.373V140.4C1050.39 138.092 1052.27 136.296 1054.5 136.296H1079.98C1082.12 136.211 1084 134.33 1084 132.021Z" fill="rgba(255,255,255,0.92)"/> <path d="M1002.51 109.276C986.95 110.559 975.663 119.195 968.31 131.935C967.283 133.731 964.462 133.047 964.462 130.909V115.604C964.462 113.295 962.581 111.499 960.357 111.499H939.922C937.613 111.499 935.817 113.38 935.817 115.604V235.397C935.817 237.706 937.699 239.501 939.922 239.501H960.357C962.666 239.501 964.462 237.62 964.462 235.397V189.053C964.462 157.672 980.195 141.255 1003.2 139.631C1005.33 139.46 1007.04 137.664 1007.04 135.526V113.38C1006.96 110.986 1004.91 109.02 1002.51 109.276Z" fill="rgba(255,255,255,0.92)"/> <path d="M523.68 233.089L513.078 218.125L486.143 180.332C484.69 178.365 485.374 175.629 487.426 174.346C503.244 165.112 513.933 148.01 514.275 128.43C514.702 98.2462 489.478 73.535 459.295 73.535H391.403C389.094 73.535 387.299 75.4162 387.299 77.6393V235.397C387.299 237.706 389.18 239.502 391.403 239.502H412.266C414.575 239.502 416.371 237.62 416.371 235.397V185.804C416.371 183.495 418.252 181.7 420.475 181.7H450.744C452.112 181.7 453.395 182.384 454.164 183.495L492.471 237.877C493.24 238.988 494.523 239.673 495.891 239.673H520.346C523.68 239.587 525.647 235.825 523.68 233.089ZM420.561 155.877C418.252 155.877 416.456 153.996 416.456 151.773V104.317C416.456 102.008 418.337 100.213 420.561 100.213H458.867C459.124 100.213 459.38 100.213 459.637 100.213C459.808 100.213 459.979 100.213 460.15 100.213C475.541 100.213 488.024 112.697 488.024 128.088C488.024 143.479 475.541 155.962 460.15 155.962C459.979 155.962 459.893 155.962 459.722 155.962C459.551 155.962 459.295 155.962 459.124 155.962H420.561V155.877Z" fill="rgba(255,255,255,0.92)"/> </g> <defs> <clipPath id="clip0_3407_101"> <rect width="1083.19" height="330.744" fill="white" transform="translate(0.805664)"/> </clipPath> </defs> </svg> </div>
-    <div class="top-label">Powering the best DTC brands</div>
-    <div class="section-title">Built for<br>brands<br>that win</div>
-    <div class="anchor-stat">
-      <div class="anchor-num">13,000+</div>
-      <div class="anchor-lbl">Shopify brands trust Recart</div>
+    <div class="logo-wrap">
+      <svg width="1084" height="331" viewBox="0 0 1084 331" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M156.604-.001C74.348.256 5.772 65.24 1.07 147.326c-1.967 34.202 8.097 67.464 26.994 95.851 17.357 25.994 41.641 46.002 70.371 57.888l-9.663 24.112c-1.197 2.993 1.454 6.157 4.617 5.473l70.628-14.622c2.822-.598 4.104-3.848 2.48-6.156L124.37 250.53c-1.881-2.65-5.9-2.222-7.097.77l-9.663 24.113C58.444 254.892 26.721 205.726 28.346 152.456 30.569 81.4 90.167 25.48 161.136 27.618c71.055 2.223 126.976 61.82 124.838 132.79a130.698 130.698 0 01-5.985 34.057l-.342.94a131.78 131.78 0 01-5.992 14.537l-.086.17c-.342.77-.684 1.454-1.026 2.224l-.257.428c-.342.683-.684 1.282-.94 1.966l-.342.684c-.257.513-.513 1.026-.855 1.539l-.257.427c-.085.171-.171.428-.342.599-.256.427-.427.769-.683 1.197l-.342.598c-.171.257-.256.513-.427.77-.171.342-.428.684-.599 1.026l-.342.598c-.171.342-.342.684-.598.94l-.342.257c-.171.257-.342.513-.513.855l-.342.599c-.257.342-.428.769-.684 1.111-.172.257-.343.513-.428.684l-.257.342c-.342.513-.598.94-.94 1.454-.086.171-.257.342-.343.513l-.256.342c-.342.513-.684 1.026-1.112 1.539l-.513.77c-.428.513-.77 1.11-1.197 1.623l-.513.599c-.428.598-.855 1.111-1.283 1.71l-.427.513c-.428.598-.941 1.197-1.369 1.795l-.427.514c-.513.598-1.026 1.197-1.54 1.795l-.341.428c-.513.598-1.026 1.197-1.539 1.795l-.342.342c-.513.599-1.112 1.197-1.71 1.796l-.257.342c-.599.599-1.112 1.197-1.71 1.796-.428.427-.855.855-1.283 1.282-4.446 4.53-9.235 8.72-14.28 12.569L190.294 195.12v-.342l-.172-.855h-.172c.086 0 .086 0 .172.001v.171c32.064-1.453 57.63-27.875 57.63-60.281 0-33.347-27.019-60.367-60.367-60.367H91.706 78.965c-3.25 0-5.13 3.591-3.249 6.242l13.68 19.58c.77 1.027 1.967 1.711 3.249 1.711h13.51 81.23c18.042.085 32.578 14.792 32.578 32.834 0 18.127-14.707 32.748-32.749 32.834h-30.44-12.74c-3.249 0-5.13 3.591-3.249 6.242l14.621 20.863 69.687 99.614c1.112 1.625 3.335 2.138 5.131 1.283 2.223-1.112 2.907-1.54 5.13-2.822l1.796-1.112c.342-.17.598-.427.94-.598l1.283-.77c.684-.427 1.368-.855 2.052-1.282l.513-.342c1.283-.855 2.651-1.71 3.933-2.651l.684-.513c.599-.427 1.283-.94 1.881-1.368l2.138-1.539c19.068-14.28 34.886-33.005 45.745-54.125l.086-.171c.513-1.026 1.112-2.138 1.625-3.249l.086-.171a130.15 130.15 0 005.299-9.744l.257-.599c.171-.598.427-1.111.598-1.71l.342-.94c.171-.428.257-.77.428-1.198.171-.513.342-1.026.513-1.539l.085-.342c.257-.684.428-1.368.684-2.052.171-.427.257-.94.428-1.368l.085-.256c.257-.77.428-1.539.684-2.224.171-.513.257-1.026.428-1.539.256-.855.427-1.624.598-2.479.086-.513.257-.941.342-1.454.257-.855.428-1.796.599-2.736l.085-.257c.086-.342.171-.684.257-1.026.256-1.026.427-2.052.598-3.078l.085-.256c0-.171.086-.257.086-.428l.77-4.019h-.085c1.111-6.669 1.71-13.51 1.966-20.264C316.33 73.278 245.36-.257 156.604-.001z" fill="#0375FF"/><path d="M537.275 174.602v-3.677c0-34.202 27.704-62.419 61.991-62.077 39.333.428 59.256 31.552 59.256 67.379 0 1.368-.086 2.821-.171 4.275-.171 2.138-1.967 3.848-4.104 3.848H571.05c-2.737 0-4.703 2.565-3.934 5.215 4.618 17.102 18.128 26.507 34.972 26.507 12.741 0 22.146-4.361 31.295-12.484 1.539-1.368 3.934-1.368 5.473 0l10.944 9.748c1.71 1.539 1.881 4.19.257 5.9-11.629 12.398-27.191 20.265-48.396 20.265-36.426.085-64.386-26.25-64.386-64.899zm87.9-9.235c2.565 0 4.531-2.308 4.018-4.873-3.163-16.076-13.766-28.132-31.038-28.132-15.99 0-27.618 11.201-31.552 27.875-.598 2.565 1.368 5.13 4.019 5.13h54.553z" fill="rgba(255,255,255,0.92)"/><path d="M673.058 174.859v-.513c0-35.571 27.532-65.498 65.241-65.498 21.633 0 35.826 7.439 47.199 18.641 1.624 1.539 1.71 4.104.171 5.814l-12.399 13.253c-1.539 1.625-4.189 1.711-5.814.171-7.952-7.61-16.674-12.74-29.328-12.74-20.864 0-36.255 18.042-36.255 39.846v.513c0 22.317 15.391 40.102 37.452 40.102 12.141 0 21.462-4.959 29.756-12.655 1.624-1.454 4.104-1.454 5.643.086l11.543 11.457c1.625 1.625 1.625 4.19.086 5.815-11.714 12.142-25.823 20.436-48.397 20.436-37.366 0-64.898-29.158-64.898-64.728z" fill="rgba(255,255,255,0.92)"/><path d="M803.627 200.681v-.513c0-27.02 21.12-40.359 51.731-40.359 12.74 0 22.146 1.796 31.039 4.447 1.282.427 2.65-.599 2.65-1.967v-.257c0-17.785-10.944-27.276-31.038-27.276-12.313 0-21.89 2.394-31.808 6.242-2.224.855-4.703-.257-5.387-2.565l-4.96-14.793c-.684-2.052.342-4.275 2.309-5.13 12.569-5.301 25.481-8.636 43.694-8.636 18.725 0 32.748 4.959 41.555 14.023 9.235 8.978 13.51 22.317 13.51 38.648v72.937c0 2.309-1.881 4.104-4.104 4.104h-19.752c-2.308 0-4.104-1.881-4.104-4.104v-9.064c0-1.795-2.223-2.736-3.506-1.453-8.465 8.379-20.521 14.45-37.28 14.45-23.686-.085-44.549-13.595-44.549-38.734zm85.848-8.978v-5.643c0-1.796-1.112-3.335-2.736-3.934-6.926-2.308-15.648-4.019-25.652-4.019-18.469 0-29.414 7.867-29.414 20.864v.513c0 12.056 10.688 18.982 24.455 18.982 18.896 0 33.347-10.859 33.347-26.763z" fill="rgba(255,255,255,0.92)"/><path d="M1084 132.021v-16.417c0-2.309-1.881-4.104-4.11-4.104h-25.48c-2.31 0-4.1-1.882-4.1-4.105V77.639c0-2.309-1.88-4.104-4.11-4.104h-20.43c-2.31 0-4.1 1.881-4.1 4.104v33.756 24.711 66.609c0 27.532 14.97 36.767 36.09 36.767 9.74 0 17.1-1.881 23.6-5.216 1.36-.684 2.22-2.137 2.22-3.677v-14.792c0-2.822-2.82-4.788-5.47-3.848-3.94 1.283-7.96 1.967-12.32 1.967-9.74 0-15.39-4.532-15.39-15.648V140.4c0-2.308 1.88-4.104 4.11-4.104h25.48c2.14-.085 4.02-1.966 4.02-4.275z" fill="rgba(255,255,255,0.92)"/><path d="M1002.51 109.276c-15.56 1.283-26.847 9.919-34.2 22.659-1.027 1.796-3.848 1.112-3.848-1.026v-15.305c0-2.309-1.881-4.105-4.105-4.105h-20.435c-2.309 0-4.105 1.881-4.105 4.105v119.793c0 2.309 1.882 4.104 4.105 4.104h20.435c2.309 0 4.105-1.881 4.105-4.104v-46.344c0-31.381 15.733-47.798 38.733-49.422 2.13-.171 3.84-1.967 3.84-4.105V113.38c-.08-2.394-2.13-4.36-4.53-4.104z" fill="rgba(255,255,255,0.92)"/><path d="M523.68 233.089l-10.602-14.964-26.935-37.793c-1.453-1.967-.769-4.703 1.283-5.986 15.818-9.234 26.507-26.336 26.849-45.916.427-30.184-24.797-54.895-54.98-54.895H391.403c-2.309 0-4.104 1.881-4.104 4.104v157.758c0 2.309 1.881 4.105 4.104 4.105h20.863c2.309 0 4.105-1.881 4.105-4.105v-49.593c0-2.309 1.881-4.104 4.104-4.104h30.269c1.368 0 2.651.684 3.42 1.795l38.307 54.382c.769 1.111 2.052 1.796 3.42 1.796h24.455c3.334-.086 5.301-3.848 3.334-6.584zm-103.119-77.212c-2.309 0-4.105-1.881-4.105-4.104v-47.456c0-2.309 1.881-4.104 4.105-4.104h38.306c.257 0 .513 0 .77 0 .171 0 .342 0 .513 0 15.391 0 27.874 12.484 27.874 27.875 0 15.391-12.483 27.874-27.874 27.874-.171 0-.257 0-.428 0-.171 0-.427 0-.598 0h-38.563v-.085z" fill="rgba(255,255,255,0.92)"/></g><defs><clipPath id="a"><rect width="1083.19" height="330.744" fill="#fff" transform="translate(.806)"/></clipPath></defs></svg>
     </div>
-    <div class="quote-box">
-      <div class="quote-text">"They're not just smart, they're strategic partners who work like an extension of our team. Our SMS channel took off — and fortunately we did it with people we trust."</div>
-      <div class="quote-author">Chris Hoyle · <span class="quote-co">Simple Modern</span></div>
-    </div>
-    <div class="left-bottom">
-      <div class="clock" id="clock-el"></div>
-    </div>
+    <div class="top-label">Budapest office</div>
+    <div class="main-title">Our<br>Live<br><em>Popups</em></div>
+    <div class="divider"></div>
+    <div class="stat-num">13,000+</div>
+    <div class="stat-lbl">Shopify brands powered by Recart</div>
+    <div class="clock" id="clock-el"></div>
   </div>
   <div class="right">
-    <div class="spotlight">
-      <div class="spotlight-label"><div class="spotlight-dot"></div>Client spotlight</div>
-      <div class="spotlight-client" id="spot-client"></div>
-      <div class="spotlight-stat" id="spot-stat"></div>
-      <div class="spotlight-desc" id="spot-desc"></div>
-    </div>
-    <div class="clients-label">Brands we're proud of</div>
-    <div class="brands-grid" id="brands-grid"></div>
+    <div class="popup-slot" id="slot-0"></div>
+    <div class="popup-slot" id="slot-1"></div>
+    <div class="popup-slot" id="slot-2"></div>
   </div>
 </div>
 
 <script>
-// Each spotlight entry has a matching client name so they stay in sync
-const SPOTLIGHTS = [
-  { client: 'Simple Modern',    stat: '627K',     desc: 'SMS subscribers & 8-figure sales' },
-  { client: 'BlendJet',         stat: '$2.8M',   desc: 'via SMS · 277% YoY growth' },
-  { client: 'The Wellness Co.', stat: '7-figure', desc: 'SMS channel built in 30 days' },
-  { client: 'Her Fantasy Box',  stat: '$20.86M', desc: 'in SMS revenue in 6 months' },
-  { client: 'KURU Footwear',    stat: '$2.47M',  desc: 'SMS revenue in 8 months' },
-  { client: 'Scentiment',       stat: '8-figure', desc: 'total SMS revenue with Recart' },
-];
+// ── POPUP CARD BUILDERS ──────────────────────────────────────────
 
-// All 12 brands — must include all spotlight client names exactly as above
-const ALL_BRANDS = [
-  'Simple Modern','BlendJet','The Wellness Co.','Her Fantasy Box',
-  'KURU Footwear','Scentiment','Carnivore Snax','True Classic',
-  'Goose Creek','Four Sigmatic','Born Primitive','Gel Blaster',
-];
-
-let current = 0;
-
-function update() {
-  const s = SPOTLIGHTS[current];
-
-  // Update spotlight panel
-  document.getElementById('spot-client').textContent = s.client;
-  document.getElementById('spot-stat').textContent = s.stat;
-  document.getElementById('spot-desc').textContent = s.desc;
-
-  // Rebuild grid — highlight the card that matches the spotlight client exactly
-  document.getElementById('brands-grid').innerHTML = ALL_BRANDS.map(name => `
-    <div class="brand-card${name === s.client ? ' active' : ''}">
-      <div class="brand-name">${name}</div>
-    </div>
-  `).join('');
+function makeCard(innerHTML) {
+  const el = document.createElement('div');
+  el.className = 'popup-card';
+  el.innerHTML = innerHTML;
+  return el;
 }
 
-function rotate() {
-  current = (current + 1) % SPOTLIGHTS.length;
-  update();
+function cardGooseCreek() {
+  return makeCard(`
+    <div class="pc-inner" style="background:linear-gradient(165deg,#fffde7 0%,#fef3c7 55%,#fde68a 100%);">
+      <div style="position:absolute;top:-6%;left:-8%;font-size:clamp(52px,9vw,130px);opacity:0.55;transform:rotate(-18deg);line-height:1;">🌿</div>
+      <div style="position:absolute;top:-4%;right:-6%;font-size:clamp(44px,8vw,114px);opacity:0.5;transform:rotate(24deg) scaleX(-1);line-height:1;">🌿</div>
+      <div style="position:absolute;bottom:-2%;right:-5%;font-size:clamp(28px,5vw,72px);opacity:0.4;transform:rotate(-12deg);line-height:1;">🌺</div>
+      <div style="font-family:Georgia,serif;font-size:clamp(11px,1.2vw,18px);color:#92400e;text-align:center;line-height:1.3;position:relative;">
+        GooseCreek<br><span style="font-size:0.72em;font-weight:400;opacity:0.7;">Bath, Body &amp; Home</span>
+      </div>
+      <div class="pc-headline" style="position:relative;">
+        <span class="small" style="color:#78716c;">Unlock Your</span>
+        <span class="big" style="color:#1c1917;">Mystery Offer</span>
+      </div>
+      <div class="pc-sub" style="color:#78716c;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;position:relative;">Choose a Box to Reveal</div>
+      <div class="mystery-boxes" style="position:relative;">
+        <div class="mystery-box" style="background:#f59e0b;">?</div>
+        <div class="mystery-box" style="background:#f59e0b;">?</div>
+        <div class="mystery-box" style="background:#f59e0b;">?</div>
+      </div>
+    </div>`);
 }
 
+function cardHerFantasyBox() {
+  return makeCard(`
+    <div class="pc-inner" style="background:#d4198a;">
+      <div class="pc-brand-name" style="color:#fff;font-size:clamp(12px,1.5vw,22px);line-height:1.15;letter-spacing:0.06em;">HER<br>FANTASY<br>BOX</div>
+      <div class="pc-headline">
+        <span class="small" style="color:rgba(255,255,255,0.75);">Save Up To</span>
+        <span class="big" style="color:#fff;font-size:clamp(30px,5vw,72px);">50% OFF</span>
+      </div>
+      <div class="pc-sub" style="color:rgba(255,255,255,0.7);">Secret Tips Awaits Along With Prize</div>
+      <div class="pc-btn" style="background:#fff;color:#1a1a1a;border-radius:6px;">Yes, Please</div>
+      <div class="pc-btn-outline" style="border:1.5px solid rgba(255,255,255,0.4);color:rgba(255,255,255,0.65);">No, Thanks</div>
+    </div>`);
+}
+
+function cardScentiment() {
+  return makeCard(`
+    <div class="pc-inner" style="background:#f4f4f4;">
+      <div style="font-family:Georgia,serif;font-size:clamp(20px,2.8vw,40px);font-style:italic;color:#1a1a1a;letter-spacing:-0.02em;">Scentiment</div>
+      <div class="pc-headline">
+        <span class="small" style="color:#666;letter-spacing:0.2em;">Claim Your</span>
+        <span class="big" style="color:#1a1a1a;font-size:clamp(18px,2.6vw,38px);">Mystery Offer</span>
+      </div>
+      <div class="pc-sub" style="color:#888;">by signing up for email and texts</div>
+      <div class="pc-input">
+        <span>🇺🇸</span>
+        <span style="color:#d0d0d0;margin:0 2px;">|</span>
+        <span style="color:#b0b0b0;">+1</span>
+        <span style="flex:1;color:#c0c0c0;border-left:1px solid #e0e0e0;padding-left:8px;">Enter phone number</span>
+      </div>
+      <div class="pc-btn" style="background:#1a1a1a;color:#fff;border-radius:100px;">Claim Offer</div>
+      <div class="pc-sub" style="color:#bbb;font-size:clamp(6px,0.65vw,9px);line-height:1.4;">By providing your phone number, you agree to receive recurring automated marketing text messages.</div>
+    </div>`);
+}
+
+function cardBurlebo() {
+  return makeCard(`
+    <div class="pc-inner" style="background:#fff;">
+      <div style="font-size:clamp(12px,1.5vw,22px);font-weight:900;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase;">BURLEBO</div>
+      <div class="pc-circle" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">🏝️</div>
+      <div class="pc-headline">
+        <span class="small" style="color:#666;">Wanna Grab a</span>
+        <span class="big" style="color:#1a1a1a;font-size:clamp(18px,2.8vw,40px);">Mystery<br>Discount?</span>
+      </div>
+      <div class="pc-btn" style="background:#1a1a1a;color:#fff;">Yes, Please!</div>
+      <div style="font-size:clamp(7px,0.75vw,10px);color:#aaa;text-align:center;text-transform:uppercase;letter-spacing:0.1em;cursor:default;">Nah, I Hate Discounts</div>
+    </div>`);
+}
+
+function cardSimpleModern() {
+  return makeCard(`
+    <div class="pc-inner" style="background:#fff;">
+      <div style="font-size:clamp(14px,1.8vw,26px);font-weight:900;color:#1a1a1a;letter-spacing:0.04em;">SM™</div>
+      <div class="pc-headline">
+        <span class="small" style="color:#888;letter-spacing:0.14em;">Welcome!</span>
+        <span style="display:block;font-size:clamp(16px,2.4vw,34px);font-weight:700;color:#1a1a1a;text-align:center;line-height:1.1;">Unlock your<br>mystery offer!</span>
+      </div>
+      <div class="pc-sub" style="color:#999;">Pick a box to reveal your deal</div>
+      <div class="mystery-boxes">
+        <div class="mystery-box" style="background:#f9a8d4;">?</div>
+        <div class="mystery-box" style="background:#f9a8d4;">?</div>
+        <div class="mystery-box" style="background:#f9a8d4;">?</div>
+      </div>
+    </div>`);
+}
+
+function cardWellnessCo() {
+  return makeCard(`
+    <div class="pc-inner" style="background:#fff;gap:2.5%;">
+      <div style="font-size:clamp(8px,0.9vw,13px);font-weight:700;color:#1e4d8c;text-transform:uppercase;letter-spacing:0.08em;text-align:center;line-height:1.35;border:1.5px solid #1e4d8c;padding:4px 12px;border-radius:4px;">THE WELLNESS<br>COMPANY</div>
+      <div style="text-align:center;">
+        <div style="font-size:clamp(16px,2.4vw,34px);font-weight:700;color:#1a1a1a;line-height:1.1;">You got 15% off</div>
+        <div class="pc-sub" style="color:#666;margin-top:3%;">What are you shopping for?</div>
+      </div>
+      ${['Detox','Longevity','Weight Loss','Parasite Cleanse','Medical Kits'].map(item =>
+        `<div class="pc-btn" style="background:#2d5f9e;color:#fff;padding:clamp(5px,1vh,12px) 10px;font-size:clamp(7px,0.8vw,11px);">${item}</div>`
+      ).join('')}
+    </div>`);
+}
+
+function cardCarnivore() {
+  return makeCard(`
+    <div class="pc-inner" style="background:#faf5eb;">
+      <div style="text-align:center;line-height:1.15;">
+        <div style="font-size:clamp(9px,1.1vw,16px);font-weight:400;color:#4a1a1a;letter-spacing:0.05em;text-transform:uppercase;">Carnivore</div>
+        <div style="font-size:clamp(16px,2.4vw,34px);font-weight:900;color:#1c0a0a;text-transform:uppercase;letter-spacing:0.04em;">SNAX</div>
+      </div>
+      <div class="pc-headline">
+        <span class="small" style="color:#4a2020;letter-spacing:0.08em;">Hey there, Carnivore.</span>
+        <span class="big" style="color:#1c0a0a;font-size:clamp(16px,2.6vw,38px);">Want 10% Off?</span>
+      </div>
+      <div class="pc-btn" style="background:#c2652a;color:#fff;">Yes!</div>
+      <div class="pc-btn-outline" style="border:1.5px solid #c2652a;color:#c2652a;">No</div>
+    </div>`);
+}
+
+// ── CYCLING LOGIC ────────────────────────────────────────────────
+
+const POPUP_BUILDERS = [
+  cardGooseCreek,
+  cardHerFantasyBox,
+  cardScentiment,
+  cardBurlebo,
+  cardSimpleModern,
+  cardWellnessCo,
+  cardCarnivore,
+];
+const STEP = 3; // ensures no two visible slots show the same popup
+
+function renderToSlot(slotEl, idx) {
+  const card = POPUP_BUILDERS[idx % POPUP_BUILDERS.length]();
+  slotEl.innerHTML = '';
+  slotEl.appendChild(card);
+  return card;
+}
+
+function initSlot(slotId, startIdx, initialDelay) {
+  const slotEl = document.getElementById(slotId);
+  let idx = ((startIdx % POPUP_BUILDERS.length) + POPUP_BUILDERS.length) % POPUP_BUILDERS.length;
+
+  renderToSlot(slotEl, idx);
+
+  function cycle() {
+    const existing = slotEl.querySelector('.popup-card');
+    if (existing) {
+      existing.classList.add('fade-out');
+      setTimeout(() => {
+        idx = (idx + STEP) % POPUP_BUILDERS.length;
+        const newCard = renderToSlot(slotEl, idx);
+        newCard.classList.add('fade-in-start');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          newCard.classList.remove('fade-in-start');
+        }));
+      }, 650);
+    }
+  }
+
+  // Each slot cycles every 12 s; staggered 4 s apart → one change every 4 s
+  setTimeout(() => setInterval(cycle, 12000), initialDelay);
+}
+
+initSlot('slot-0', 0, 0);
+initSlot('slot-1', 2, 4000);
+initSlot('slot-2', 4, 8000);
+
+// ── CLOCK ────────────────────────────────────────────────────────
 function tick() {
-  const now = new Date(); const el = document.getElementById('clock-el');
-  if (el) el.textContent = now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) + ' · ' + now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  const el = document.getElementById('clock-el');
+  const now = new Date();
+  if (el) el.textContent =
+    now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) + ' · ' +
+    now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
-
-update(); tick();
+tick();
 setInterval(tick, 30000);
-setInterval(rotate, 5000);
 setTimeout(() => location.reload(), 60 * 60 * 1000);
-
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let W, H, dots;
-function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
-function initDots() { dots = Array.from({length:50},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+0.3,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,o:Math.random()*.13+0.04})); }
-function draw() {
-  ctx.clearRect(0,0,W,H);
-  const g=ctx.createLinearGradient(0,0,W,H);
-  g.addColorStop(0,'#060d1e');g.addColorStop(0.5,'#0a1428');g.addColorStop(1,'#0d1635');
-  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle='rgba(3,117,255,0.03)';ctx.lineWidth=1;
-  const s=Math.max(W,H)/10;
-  for(let x=0;x<W+s;x+=s){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x-H*.28,H);ctx.stroke();}
-  dots.forEach(d=>{d.x+=d.vx;d.y+=d.vy;if(d.x<0)d.x=W;if(d.x>W)d.x=0;if(d.y<0)d.y=H;if(d.y>H)d.y=0;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fillStyle=`rgba(3,117,255,${d.o})`;ctx.fill();});
-  requestAnimationFrame(draw);
-}
-resize();initDots();draw();
-window.addEventListener('resize',()=>{resize();initDots();});
 </script>
 </body>
 </html>
