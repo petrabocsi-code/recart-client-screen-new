@@ -4,157 +4,71 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Recart · Our Live Popups</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: #060d1e; }
 
   .screen {
     width: 100vw; height: 100vh;
-    font-family: 'Inter', sans-serif;
-    display: grid; grid-template-columns: 26% 1fr;
-    overflow: hidden;
+    background: #060d1e; font-family: 'Inter', sans-serif;
+    display: grid; grid-template-columns: 28% 1fr;
+    position: relative; overflow: hidden;
   }
 
-  /* ── LEFT ── */
+  /* ── LEFT (identical to map screen) ── */
   .left {
+    position: relative; z-index: 3;
     display: flex; flex-direction: column;
-    padding: 5vh 4.5vw;
+    padding: 4% 4%;
     border-right: 1px solid rgba(255,255,255,0.06);
-    position: relative; z-index: 1;
   }
-  .logo-wrap svg { height: clamp(18px,2.2vw,30px); width: auto; }
-  .top-label {
-    font-size: clamp(8px,0.82vw,11px); font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: #0375FF; margin-top: clamp(12px,2vh,22px);
+  .logo-wrap { margin-bottom: clamp(14px,2vh,28px); }
+  .logo-wrap svg { height: clamp(20px,2.6vw,38px); width: auto; }
+  .section-title {
+    font-size: clamp(28px,4.5vw,62px); font-weight: 900; color: #fff;
+    line-height: 0.9; text-transform: uppercase; letter-spacing: -0.03em;
+    margin-bottom: clamp(12px,1.8vh,22px);
   }
-  .main-title {
-    font-size: clamp(28px,5vw,70px); font-weight: 900;
-    color: #fff; line-height: 0.9;
-    text-transform: uppercase; letter-spacing: -0.03em;
-    margin-top: clamp(8px,1.2vh,14px);
-  }
-  .main-title em { color: #0375FF; font-style: normal; display: block; }
-  .divider {
-    width: 36px; height: 3px; background: #0375FF;
-    border-radius: 2px; margin: clamp(12px,2vh,22px) 0;
-  }
-  .stat-num {
-    font-size: clamp(20px,3vw,44px); font-weight: 900;
-    color: #0375FF; line-height: 1;
-  }
-  .stat-lbl {
-    font-size: clamp(8px,0.82vw,11px); font-weight: 500;
-    color: rgba(255,255,255,0.32); margin-top: 4px;
-    letter-spacing: 0.04em;
-  }
+  .spacer { flex: 1; }
   .clock {
-    margin-top: auto;
-    font-size: clamp(9px,0.88vw,12px);
-    color: rgba(255,255,255,0.25); letter-spacing: 0.05em;
+    font-size: clamp(14px,1.6vw,22px); color: rgba(255,255,255,0.72);
+    letter-spacing: 0.06em; padding-top: 6px;
   }
 
   /* ── RIGHT ── */
   .right {
-    display: flex; align-items: center;
-    padding: 3.5vh 3vw;
-    gap: 1.6%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 3vh 2.5vw;
+    gap: 1.5%;
     overflow: hidden;
   }
 
   .popup-slot {
     flex: 1;
-    height: 84vh;
+    height: 100%;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
 
   /* ── POPUP CARDS ── */
   .popup-card {
-    width: 100%; height: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+    max-width: 100%;
+    max-height: 86vh;
+    width: auto; height: auto;
+    border-radius: 14px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
+    display: block;
     transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1);
   }
   .popup-card.fade-out {
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    transform: scale(0.92) translateY(16px);
     pointer-events: none;
   }
   .popup-card.fade-in-start {
     opacity: 0;
-    transform: scale(0.9) translateY(-20px);
-  }
-
-  .pc-inner {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 7% 8%; gap: 3.5%;
-    position: relative; overflow: hidden;
-  }
-  .pc-brand-name {
-    font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; text-align: center; line-height: 1.2;
-    font-size: clamp(10px,1.1vw,16px);
-  }
-  .pc-headline {
-    text-align: center; line-height: 1.05;
-  }
-  .pc-headline .small {
-    display: block;
-    font-size: clamp(9px,1vw,14px); font-weight: 400;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    margin-bottom: 3%;
-  }
-  .pc-headline .big {
-    display: block;
-    font-size: clamp(18px,2.8vw,42px); font-weight: 900;
-    text-transform: uppercase; letter-spacing: -0.01em;
-  }
-  .pc-sub {
-    font-size: clamp(7px,0.8vw,11px);
-    text-align: center; line-height: 1.5; opacity: 0.7;
-  }
-  .mystery-boxes {
-    display: flex; gap: 5%;
-  }
-  .mystery-box {
-    width: clamp(34px,5.2vw,68px); height: clamp(34px,5.2vw,68px);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: clamp(16px,2.4vw,32px); font-weight: 900; color: #fff;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-  }
-  .pc-btn {
-    width: 100%; padding: clamp(7px,1.4vh,16px) 10px;
-    border-radius: 6px; cursor: default;
-    font-size: clamp(8px,0.9vw,13px); font-weight: 700;
-    text-align: center; text-transform: uppercase; letter-spacing: 0.07em;
-  }
-  .pc-btn-outline {
-    width: 100%; padding: clamp(6px,1.1vh,12px) 10px;
-    border-radius: 6px; cursor: default;
-    font-size: clamp(7px,0.78vw,11px); font-weight: 600;
-    text-align: center; text-transform: uppercase; letter-spacing: 0.07em;
-    background: transparent;
-  }
-  .pc-input {
-    display: flex; align-items: center;
-    background: #fff; border-radius: 100px;
-    padding: clamp(5px,1vh,12px) clamp(8px,1.2vw,16px);
-    width: 100%; gap: 6px; color: #bbb;
-    font-size: clamp(7px,0.8vw,11px);
-  }
-  .pc-circle {
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: clamp(24px,3.6vw,52px);
-    width: clamp(68px,10vw,140px); height: clamp(68px,10vw,140px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    flex-shrink: 0;
+    transform: scale(0.92) translateY(-16px);
   }
 </style>
 </head>
@@ -162,15 +76,13 @@
 <div class="screen">
   <div class="left">
     <div class="logo-wrap">
-      <svg width="1084" height="331" viewBox="0 0 1084 331" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M156.604-.001C74.348.256 5.772 65.24 1.07 147.326c-1.967 34.202 8.097 67.464 26.994 95.851 17.357 25.994 41.641 46.002 70.371 57.888l-9.663 24.112c-1.197 2.993 1.454 6.157 4.617 5.473l70.628-14.622c2.822-.598 4.104-3.848 2.48-6.156L124.37 250.53c-1.881-2.65-5.9-2.222-7.097.77l-9.663 24.113C58.444 254.892 26.721 205.726 28.346 152.456 30.569 81.4 90.167 25.48 161.136 27.618c71.055 2.223 126.976 61.82 124.838 132.79a130.698 130.698 0 01-5.985 34.057l-.342.94a131.78 131.78 0 01-5.992 14.537l-.086.17c-.342.77-.684 1.454-1.026 2.224l-.257.428c-.342.683-.684 1.282-.94 1.966l-.342.684c-.257.513-.513 1.026-.855 1.539l-.257.427c-.085.171-.171.428-.342.599-.256.427-.427.769-.683 1.197l-.342.598c-.171.257-.256.513-.427.77-.171.342-.428.684-.599 1.026l-.342.598c-.171.342-.342.684-.598.94l-.342.257c-.171.257-.342.513-.513.855l-.342.599c-.257.342-.428.769-.684 1.111-.172.257-.343.513-.428.684l-.257.342c-.342.513-.598.94-.94 1.454-.086.171-.257.342-.343.513l-.256.342c-.342.513-.684 1.026-1.112 1.539l-.513.77c-.428.513-.77 1.11-1.197 1.623l-.513.599c-.428.598-.855 1.111-1.283 1.71l-.427.513c-.428.598-.941 1.197-1.369 1.795l-.427.514c-.513.598-1.026 1.197-1.54 1.795l-.341.428c-.513.598-1.026 1.197-1.539 1.795l-.342.342c-.513.599-1.112 1.197-1.71 1.796l-.257.342c-.599.599-1.112 1.197-1.71 1.796-.428.427-.855.855-1.283 1.282-4.446 4.53-9.235 8.72-14.28 12.569L190.294 195.12v-.342l-.172-.855h-.172c.086 0 .086 0 .172.001v.171c32.064-1.453 57.63-27.875 57.63-60.281 0-33.347-27.019-60.367-60.367-60.367H91.706 78.965c-3.25 0-5.13 3.591-3.249 6.242l13.68 19.58c.77 1.027 1.967 1.711 3.249 1.711h13.51 81.23c18.042.085 32.578 14.792 32.578 32.834 0 18.127-14.707 32.748-32.749 32.834h-30.44-12.74c-3.249 0-5.13 3.591-3.249 6.242l14.621 20.863 69.687 99.614c1.112 1.625 3.335 2.138 5.131 1.283 2.223-1.112 2.907-1.54 5.13-2.822l1.796-1.112c.342-.17.598-.427.94-.598l1.283-.77c.684-.427 1.368-.855 2.052-1.282l.513-.342c1.283-.855 2.651-1.71 3.933-2.651l.684-.513c.599-.427 1.283-.94 1.881-1.368l2.138-1.539c19.068-14.28 34.886-33.005 45.745-54.125l.086-.171c.513-1.026 1.112-2.138 1.625-3.249l.086-.171a130.15 130.15 0 005.299-9.744l.257-.599c.171-.598.427-1.111.598-1.71l.342-.94c.171-.428.257-.77.428-1.198.171-.513.342-1.026.513-1.539l.085-.342c.257-.684.428-1.368.684-2.052.171-.427.257-.94.428-1.368l.085-.256c.257-.77.428-1.539.684-2.224.171-.513.257-1.026.428-1.539.256-.855.427-1.624.598-2.479.086-.513.257-.941.342-1.454.257-.855.428-1.796.599-2.736l.085-.257c.086-.342.171-.684.257-1.026.256-1.026.427-2.052.598-3.078l.085-.256c0-.171.086-.257.086-.428l.77-4.019h-.085c1.111-6.669 1.71-13.51 1.966-20.264C316.33 73.278 245.36-.257 156.604-.001z" fill="#0375FF"/><path d="M537.275 174.602v-3.677c0-34.202 27.704-62.419 61.991-62.077 39.333.428 59.256 31.552 59.256 67.379 0 1.368-.086 2.821-.171 4.275-.171 2.138-1.967 3.848-4.104 3.848H571.05c-2.737 0-4.703 2.565-3.934 5.215 4.618 17.102 18.128 26.507 34.972 26.507 12.741 0 22.146-4.361 31.295-12.484 1.539-1.368 3.934-1.368 5.473 0l10.944 9.748c1.71 1.539 1.881 4.19.257 5.9-11.629 12.398-27.191 20.265-48.396 20.265-36.426.085-64.386-26.25-64.386-64.899zm87.9-9.235c2.565 0 4.531-2.308 4.018-4.873-3.163-16.076-13.766-28.132-31.038-28.132-15.99 0-27.618 11.201-31.552 27.875-.598 2.565 1.368 5.13 4.019 5.13h54.553z" fill="rgba(255,255,255,0.92)"/><path d="M673.058 174.859v-.513c0-35.571 27.532-65.498 65.241-65.498 21.633 0 35.826 7.439 47.199 18.641 1.624 1.539 1.71 4.104.171 5.814l-12.399 13.253c-1.539 1.625-4.189 1.711-5.814.171-7.952-7.61-16.674-12.74-29.328-12.74-20.864 0-36.255 18.042-36.255 39.846v.513c0 22.317 15.391 40.102 37.452 40.102 12.141 0 21.462-4.959 29.756-12.655 1.624-1.454 4.104-1.454 5.643.086l11.543 11.457c1.625 1.625 1.625 4.19.086 5.815-11.714 12.142-25.823 20.436-48.397 20.436-37.366 0-64.898-29.158-64.898-64.728z" fill="rgba(255,255,255,0.92)"/><path d="M803.627 200.681v-.513c0-27.02 21.12-40.359 51.731-40.359 12.74 0 22.146 1.796 31.039 4.447 1.282.427 2.65-.599 2.65-1.967v-.257c0-17.785-10.944-27.276-31.038-27.276-12.313 0-21.89 2.394-31.808 6.242-2.224.855-4.703-.257-5.387-2.565l-4.96-14.793c-.684-2.052.342-4.275 2.309-5.13 12.569-5.301 25.481-8.636 43.694-8.636 18.725 0 32.748 4.959 41.555 14.023 9.235 8.978 13.51 22.317 13.51 38.648v72.937c0 2.309-1.881 4.104-4.104 4.104h-19.752c-2.308 0-4.104-1.881-4.104-4.104v-9.064c0-1.795-2.223-2.736-3.506-1.453-8.465 8.379-20.521 14.45-37.28 14.45-23.686-.085-44.549-13.595-44.549-38.734zm85.848-8.978v-5.643c0-1.796-1.112-3.335-2.736-3.934-6.926-2.308-15.648-4.019-25.652-4.019-18.469 0-29.414 7.867-29.414 20.864v.513c0 12.056 10.688 18.982 24.455 18.982 18.896 0 33.347-10.859 33.347-26.763z" fill="rgba(255,255,255,0.92)"/><path d="M1084 132.021v-16.417c0-2.309-1.881-4.104-4.11-4.104h-25.48c-2.31 0-4.1-1.882-4.1-4.105V77.639c0-2.309-1.88-4.104-4.11-4.104h-20.43c-2.31 0-4.1 1.881-4.1 4.104v33.756 24.711 66.609c0 27.532 14.97 36.767 36.09 36.767 9.74 0 17.1-1.881 23.6-5.216 1.36-.684 2.22-2.137 2.22-3.677v-14.792c0-2.822-2.82-4.788-5.47-3.848-3.94 1.283-7.96 1.967-12.32 1.967-9.74 0-15.39-4.532-15.39-15.648V140.4c0-2.308 1.88-4.104 4.11-4.104h25.48c2.14-.085 4.02-1.966 4.02-4.275z" fill="rgba(255,255,255,0.92)"/><path d="M1002.51 109.276c-15.56 1.283-26.847 9.919-34.2 22.659-1.027 1.796-3.848 1.112-3.848-1.026v-15.305c0-2.309-1.881-4.105-4.105-4.105h-20.435c-2.309 0-4.105 1.881-4.105 4.105v119.793c0 2.309 1.882 4.104 4.105 4.104h20.435c2.309 0 4.105-1.881 4.105-4.104v-46.344c0-31.381 15.733-47.798 38.733-49.422 2.13-.171 3.84-1.967 3.84-4.105V113.38c-.08-2.394-2.13-4.36-4.53-4.104z" fill="rgba(255,255,255,0.92)"/><path d="M523.68 233.089l-10.602-14.964-26.935-37.793c-1.453-1.967-.769-4.703 1.283-5.986 15.818-9.234 26.507-26.336 26.849-45.916.427-30.184-24.797-54.895-54.98-54.895H391.403c-2.309 0-4.104 1.881-4.104 4.104v157.758c0 2.309 1.881 4.105 4.104 4.105h20.863c2.309 0 4.105-1.881 4.105-4.105v-49.593c0-2.309 1.881-4.104 4.104-4.104h30.269c1.368 0 2.651.684 3.42 1.795l38.307 54.382c.769 1.111 2.052 1.796 3.42 1.796h24.455c3.334-.086 5.301-3.848 3.334-6.584zm-103.119-77.212c-2.309 0-4.105-1.881-4.105-4.104v-47.456c0-2.309 1.881-4.104 4.105-4.104h38.306c.257 0 .513 0 .77 0 .171 0 .342 0 .513 0 15.391 0 27.874 12.484 27.874 27.875 0 15.391-12.483 27.874-27.874 27.874-.171 0-.257 0-.428 0-.171 0-.427 0-.598 0h-38.563v-.085z" fill="rgba(255,255,255,0.92)"/></g><defs><clipPath id="a"><rect width="1083.19" height="330.744" fill="#fff" transform="translate(.806)"/></clipPath></defs></svg>
+      <svg width="1084" height="331" viewBox="0 0 1084 331" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#c0)"><path d="M156.604-.001C74.348.256 5.772 65.24 1.07 147.326c-1.967 34.202 8.097 67.464 26.994 95.851 17.357 25.994 41.641 46.002 70.371 57.888l-9.663 24.112c-1.197 2.993 1.454 6.157 4.617 5.473l70.628-14.622c2.822-.598 4.104-3.848 2.48-6.156L124.37 250.53c-1.881-2.65-5.9-2.222-7.097.77l-9.663 24.113C58.444 254.892 26.721 205.726 28.346 152.456 30.569 81.4 90.167 25.48 161.136 27.618c71.055 2.223 126.976 61.82 124.838 132.79a130.698 130.698 0 01-5.985 34.057l-.342.94a131.78 131.78 0 01-5.992 14.537l-.086.17c-.342.77-.684 1.454-1.026 2.224l-.257.428c-.342.683-.684 1.282-.94 1.966l-.342.684c-.257.513-.513 1.026-.855 1.539l-.257.427c-.085.171-.171.428-.342.599-.256.427-.427.769-.683 1.197l-.342.598c-.171.257-.256.513-.427.77-.171.342-.428.684-.599 1.026l-.342.598c-.171.342-.342.684-.598.94l-.342.257c-.171.257-.342.513-.513.855l-.342.599c-.257.342-.428.769-.684 1.111-.172.257-.343.513-.428.684l-.257.342c-.342.513-.598.94-.94 1.454-.086.171-.257.342-.343.513l-.256.342c-.342.513-.684 1.026-1.112 1.539l-.513.77c-.428.513-.77 1.11-1.197 1.623l-.513.599c-.428.598-.855 1.111-1.283 1.71l-.427.513c-.428.598-.941 1.197-1.369 1.795l-.427.514c-.513.598-1.026 1.197-1.54 1.795l-.341.428c-.513.598-1.026 1.197-1.539 1.795l-.342.342c-.513.599-1.112 1.197-1.71 1.796l-.257.342c-.599.599-1.112 1.197-1.71 1.796-.428.427-.855.855-1.283 1.282-4.446 4.53-9.235 8.72-14.28 12.569L190.294 195.12v-.342l-.172-.855h-.172c.086 0 .086 0 .172.001v.171c32.064-1.453 57.63-27.875 57.63-60.281 0-33.347-27.019-60.367-60.367-60.367H91.706 78.965c-3.25 0-5.13 3.591-3.249 6.242l13.68 19.58c.77 1.027 1.967 1.711 3.249 1.711h13.51 81.23c18.042.085 32.578 14.792 32.578 32.834 0 18.127-14.707 32.748-32.749 32.834h-30.44-12.74c-3.249 0-5.13 3.591-3.249 6.242l14.621 20.863 69.687 99.614c1.112 1.625 3.335 2.138 5.131 1.283 2.223-1.112 2.907-1.54 5.13-2.822l1.796-1.112c.342-.17.598-.427.94-.598l1.283-.77c.684-.427 1.368-.855 2.052-1.282l.513-.342c1.283-.855 2.651-1.71 3.933-2.651l.684-.513c.599-.427 1.283-.94 1.881-1.368l2.138-1.539c19.068-14.28 34.886-33.005 45.745-54.125l.086-.171c.513-1.026 1.112-2.138 1.625-3.249l.086-.171a130.15 130.15 0 005.299-9.744l.257-.599c.171-.598.427-1.111.598-1.71l.342-.94c.171-.428.257-.77.428-1.198.171-.513.342-1.026.513-1.539l.085-.342c.257-.684.428-1.368.684-2.052.171-.427.257-.94.428-1.368l.085-.256c.257-.77.428-1.539.684-2.224.171-.513.257-1.026.428-1.539.256-.855.427-1.624.598-2.479.086-.513.257-.941.342-1.454.257-.855.428-1.796.599-2.736l.085-.257c.086-.342.171-.684.257-1.026.256-1.026.427-2.052.598-3.078l.085-.256c0-.171.086-.257.086-.428l.77-4.019h-.085c1.111-6.669 1.71-13.51 1.966-20.264C316.33 73.278 245.36-.257 156.604-.001z" fill="#0375FF"/><path d="M537.275 174.602v-3.677c0-34.202 27.704-62.419 61.991-62.077 39.333.428 59.256 31.552 59.256 67.379 0 1.368-.086 2.821-.171 4.275-.171 2.138-1.967 3.848-4.104 3.848H571.05c-2.737 0-4.703 2.565-3.934 5.215 4.618 17.102 18.128 26.507 34.972 26.507 12.741 0 22.146-4.361 31.295-12.484 1.539-1.368 3.934-1.368 5.473 0l10.944 9.748c1.71 1.539 1.881 4.19.257 5.9-11.629 12.398-27.191 20.265-48.396 20.265-36.426.085-64.386-26.25-64.386-64.899zm87.9-9.235c2.565 0 4.531-2.308 4.018-4.873-3.163-16.076-13.766-28.132-31.038-28.132-15.99 0-27.618 11.201-31.552 27.875-.598 2.565 1.368 5.13 4.019 5.13h54.553z" fill="rgba(255,255,255,0.92)"/><path d="M673.058 174.859v-.513c0-35.571 27.532-65.498 65.241-65.498 21.633 0 35.826 7.439 47.199 18.641 1.624 1.539 1.71 4.104.171 5.814l-12.399 13.253c-1.539 1.625-4.189 1.711-5.814.171-7.952-7.61-16.674-12.74-29.328-12.74-20.864 0-36.255 18.042-36.255 39.846v.513c0 22.317 15.391 40.102 37.452 40.102 12.141 0 21.462-4.959 29.756-12.655 1.624-1.454 4.104-1.454 5.643.086l11.543 11.457c1.625 1.625 1.625 4.19.086 5.815-11.714 12.142-25.823 20.436-48.397 20.436-37.366 0-64.898-29.158-64.898-64.728z" fill="rgba(255,255,255,0.92)"/><path d="M803.627 200.681v-.513c0-27.02 21.12-40.359 51.731-40.359 12.74 0 22.146 1.796 31.039 4.447 1.282.427 2.65-.599 2.65-1.967v-.257c0-17.785-10.944-27.276-31.038-27.276-12.313 0-21.89 2.394-31.808 6.242-2.224.855-4.703-.257-5.387-2.565l-4.96-14.793c-.684-2.052.342-4.275 2.309-5.13 12.569-5.301 25.481-8.636 43.694-8.636 18.725 0 32.748 4.959 41.555 14.023 9.235 8.978 13.51 22.317 13.51 38.648v72.937c0 2.309-1.881 4.104-4.104 4.104h-19.752c-2.308 0-4.104-1.881-4.104-4.104v-9.064c0-1.795-2.223-2.736-3.506-1.453-8.465 8.379-20.521 14.45-37.28 14.45-23.686-.085-44.549-13.595-44.549-38.734zm85.848-8.978v-5.643c0-1.796-1.112-3.335-2.736-3.934-6.926-2.308-15.648-4.019-25.652-4.019-18.469 0-29.414 7.867-29.414 20.864v.513c0 12.056 10.688 18.982 24.455 18.982 18.896 0 33.347-10.859 33.347-26.763z" fill="rgba(255,255,255,0.92)"/><path d="M1084 132.021v-16.417c0-2.309-1.881-4.104-4.11-4.104h-25.48c-2.31 0-4.1-1.882-4.1-4.105V77.639c0-2.309-1.88-4.104-4.11-4.104h-20.43c-2.31 0-4.1 1.881-4.1 4.104v33.756 24.711 66.609c0 27.532 14.97 36.767 36.09 36.767 9.74 0 17.1-1.881 23.6-5.216 1.36-.684 2.22-2.137 2.22-3.677v-14.792c0-2.822-2.82-4.788-5.47-3.848-3.94 1.283-7.96 1.967-12.32 1.967-9.74 0-15.39-4.532-15.39-15.648V140.4c0-2.308 1.88-4.104 4.11-4.104h25.48c2.14-.085 4.02-1.966 4.02-4.275z" fill="rgba(255,255,255,0.92)"/><path d="M1002.51 109.276c-15.56 1.283-26.847 9.919-34.2 22.659-1.027 1.796-3.848 1.112-3.848-1.026v-15.305c0-2.309-1.881-4.105-4.105-4.105h-20.435c-2.309 0-4.105 1.881-4.105 4.105v119.793c0 2.309 1.882 4.104 4.105 4.104h20.435c2.309 0 4.105-1.881 4.105-4.104v-46.344c0-31.381 15.733-47.798 38.733-49.422 2.13-.171 3.84-1.967 3.84-4.105V113.38c-.08-2.394-2.13-4.36-4.53-4.104z" fill="rgba(255,255,255,0.92)"/><path d="M523.68 233.089l-10.602-14.964-26.935-37.793c-1.453-1.967-.769-4.703 1.283-5.986 15.818-9.234 26.507-26.336 26.849-45.916.427-30.184-24.797-54.895-54.98-54.895H391.403c-2.309 0-4.104 1.881-4.104 4.104v157.758c0 2.309 1.881 4.105 4.104 4.105h20.863c2.309 0 4.105-1.881 4.105-4.105v-49.593c0-2.309 1.881-4.104 4.104-4.104h30.269c1.368 0 2.651.684 3.42 1.795l38.307 54.382c.769 1.111 2.052 1.796 3.42 1.796h24.455c3.334-.086 5.301-3.848 3.334-6.584zm-103.119-77.212c-2.309 0-4.105-1.881-4.105-4.104v-47.456c0-2.309 1.881-4.104 4.105-4.104h38.306c.257 0 .513 0 .77 0 .171 0 .342 0 .513 0 15.391 0 27.874 12.484 27.874 27.875 0 15.391-12.483 27.874-27.874 27.874-.171 0-.257 0-.428 0-.171 0-.427 0-.598 0h-38.563v-.085z" fill="rgba(255,255,255,0.92)"/></g><defs><clipPath id="c0"><rect width="1083.19" height="330.744" fill="#fff" transform="translate(.806)"/></clipPath></defs></svg>
     </div>
-    <div class="top-label">Budapest office</div>
-    <div class="main-title">Our<br>Live<br><em>Popups</em></div>
-    <div class="divider"></div>
-    <div class="stat-num">13,000+</div>
-    <div class="stat-lbl">Shopify brands powered by Recart</div>
+    <div class="section-title">Our<br>live<br>popups</div>
+    <div class="spacer"></div>
     <div class="clock" id="clock-el"></div>
   </div>
+
   <div class="right">
     <div class="popup-slot" id="slot-0"></div>
     <div class="popup-slot" id="slot-1"></div>
@@ -179,155 +91,31 @@
 </div>
 
 <script>
-// ── POPUP CARD BUILDERS ──────────────────────────────────────────
-
-function makeCard(innerHTML) {
-  const el = document.createElement('div');
-  el.className = 'popup-card';
-  el.innerHTML = innerHTML;
-  return el;
-}
-
-function cardGooseCreek() {
-  return makeCard(`
-    <div class="pc-inner" style="background:linear-gradient(165deg,#fffde7 0%,#fef3c7 55%,#fde68a 100%);">
-      <div style="position:absolute;top:-6%;left:-8%;font-size:clamp(52px,9vw,130px);opacity:0.55;transform:rotate(-18deg);line-height:1;">🌿</div>
-      <div style="position:absolute;top:-4%;right:-6%;font-size:clamp(44px,8vw,114px);opacity:0.5;transform:rotate(24deg) scaleX(-1);line-height:1;">🌿</div>
-      <div style="position:absolute;bottom:-2%;right:-5%;font-size:clamp(28px,5vw,72px);opacity:0.4;transform:rotate(-12deg);line-height:1;">🌺</div>
-      <div style="font-family:Georgia,serif;font-size:clamp(11px,1.2vw,18px);color:#92400e;text-align:center;line-height:1.3;position:relative;">
-        GooseCreek<br><span style="font-size:0.72em;font-weight:400;opacity:0.7;">Bath, Body &amp; Home</span>
-      </div>
-      <div class="pc-headline" style="position:relative;">
-        <span class="small" style="color:#78716c;">Unlock Your</span>
-        <span class="big" style="color:#1c1917;">Mystery Offer</span>
-      </div>
-      <div class="pc-sub" style="color:#78716c;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;position:relative;">Choose a Box to Reveal</div>
-      <div class="mystery-boxes" style="position:relative;">
-        <div class="mystery-box" style="background:#f59e0b;">?</div>
-        <div class="mystery-box" style="background:#f59e0b;">?</div>
-        <div class="mystery-box" style="background:#f59e0b;">?</div>
-      </div>
-    </div>`);
-}
-
-function cardHerFantasyBox() {
-  return makeCard(`
-    <div class="pc-inner" style="background:#d4198a;">
-      <div class="pc-brand-name" style="color:#fff;font-size:clamp(12px,1.5vw,22px);line-height:1.15;letter-spacing:0.06em;">HER<br>FANTASY<br>BOX</div>
-      <div class="pc-headline">
-        <span class="small" style="color:rgba(255,255,255,0.75);">Save Up To</span>
-        <span class="big" style="color:#fff;font-size:clamp(30px,5vw,72px);">50% OFF</span>
-      </div>
-      <div class="pc-sub" style="color:rgba(255,255,255,0.7);">Secret Tips Awaits Along With Prize</div>
-      <div class="pc-btn" style="background:#fff;color:#1a1a1a;border-radius:6px;">Yes, Please</div>
-      <div class="pc-btn-outline" style="border:1.5px solid rgba(255,255,255,0.4);color:rgba(255,255,255,0.65);">No, Thanks</div>
-    </div>`);
-}
-
-function cardScentiment() {
-  return makeCard(`
-    <div class="pc-inner" style="background:#f4f4f4;">
-      <div style="font-family:Georgia,serif;font-size:clamp(20px,2.8vw,40px);font-style:italic;color:#1a1a1a;letter-spacing:-0.02em;">Scentiment</div>
-      <div class="pc-headline">
-        <span class="small" style="color:#666;letter-spacing:0.2em;">Claim Your</span>
-        <span class="big" style="color:#1a1a1a;font-size:clamp(18px,2.6vw,38px);">Mystery Offer</span>
-      </div>
-      <div class="pc-sub" style="color:#888;">by signing up for email and texts</div>
-      <div class="pc-input">
-        <span>🇺🇸</span>
-        <span style="color:#d0d0d0;margin:0 2px;">|</span>
-        <span style="color:#b0b0b0;">+1</span>
-        <span style="flex:1;color:#c0c0c0;border-left:1px solid #e0e0e0;padding-left:8px;">Enter phone number</span>
-      </div>
-      <div class="pc-btn" style="background:#1a1a1a;color:#fff;border-radius:100px;">Claim Offer</div>
-      <div class="pc-sub" style="color:#bbb;font-size:clamp(6px,0.65vw,9px);line-height:1.4;">By providing your phone number, you agree to receive recurring automated marketing text messages.</div>
-    </div>`);
-}
-
-function cardBurlebo() {
-  return makeCard(`
-    <div class="pc-inner" style="background:#fff;">
-      <div style="font-size:clamp(12px,1.5vw,22px);font-weight:900;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase;">BURLEBO</div>
-      <div class="pc-circle" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">🏝️</div>
-      <div class="pc-headline">
-        <span class="small" style="color:#666;">Wanna Grab a</span>
-        <span class="big" style="color:#1a1a1a;font-size:clamp(18px,2.8vw,40px);">Mystery<br>Discount?</span>
-      </div>
-      <div class="pc-btn" style="background:#1a1a1a;color:#fff;">Yes, Please!</div>
-      <div style="font-size:clamp(7px,0.75vw,10px);color:#aaa;text-align:center;text-transform:uppercase;letter-spacing:0.1em;cursor:default;">Nah, I Hate Discounts</div>
-    </div>`);
-}
-
-function cardSimpleModern() {
-  return makeCard(`
-    <div class="pc-inner" style="background:#fff;">
-      <div style="font-size:clamp(14px,1.8vw,26px);font-weight:900;color:#1a1a1a;letter-spacing:0.04em;">SM™</div>
-      <div class="pc-headline">
-        <span class="small" style="color:#888;letter-spacing:0.14em;">Welcome!</span>
-        <span style="display:block;font-size:clamp(16px,2.4vw,34px);font-weight:700;color:#1a1a1a;text-align:center;line-height:1.1;">Unlock your<br>mystery offer!</span>
-      </div>
-      <div class="pc-sub" style="color:#999;">Pick a box to reveal your deal</div>
-      <div class="mystery-boxes">
-        <div class="mystery-box" style="background:#f9a8d4;">?</div>
-        <div class="mystery-box" style="background:#f9a8d4;">?</div>
-        <div class="mystery-box" style="background:#f9a8d4;">?</div>
-      </div>
-    </div>`);
-}
-
-function cardWellnessCo() {
-  return makeCard(`
-    <div class="pc-inner" style="background:#fff;gap:2.5%;">
-      <div style="font-size:clamp(8px,0.9vw,13px);font-weight:700;color:#1e4d8c;text-transform:uppercase;letter-spacing:0.08em;text-align:center;line-height:1.35;border:1.5px solid #1e4d8c;padding:4px 12px;border-radius:4px;">THE WELLNESS<br>COMPANY</div>
-      <div style="text-align:center;">
-        <div style="font-size:clamp(16px,2.4vw,34px);font-weight:700;color:#1a1a1a;line-height:1.1;">You got 15% off</div>
-        <div class="pc-sub" style="color:#666;margin-top:3%;">What are you shopping for?</div>
-      </div>
-      ${['Detox','Longevity','Weight Loss','Parasite Cleanse','Medical Kits'].map(item =>
-        `<div class="pc-btn" style="background:#2d5f9e;color:#fff;padding:clamp(5px,1vh,12px) 10px;font-size:clamp(7px,0.8vw,11px);">${item}</div>`
-      ).join('')}
-    </div>`);
-}
-
-function cardCarnivore() {
-  return makeCard(`
-    <div class="pc-inner" style="background:#faf5eb;">
-      <div style="text-align:center;line-height:1.15;">
-        <div style="font-size:clamp(9px,1.1vw,16px);font-weight:400;color:#4a1a1a;letter-spacing:0.05em;text-transform:uppercase;">Carnivore</div>
-        <div style="font-size:clamp(16px,2.4vw,34px);font-weight:900;color:#1c0a0a;text-transform:uppercase;letter-spacing:0.04em;">SNAX</div>
-      </div>
-      <div class="pc-headline">
-        <span class="small" style="color:#4a2020;letter-spacing:0.08em;">Hey there, Carnivore.</span>
-        <span class="big" style="color:#1c0a0a;font-size:clamp(16px,2.6vw,38px);">Want 10% Off?</span>
-      </div>
-      <div class="pc-btn" style="background:#c2652a;color:#fff;">Yes!</div>
-      <div class="pc-btn-outline" style="border:1.5px solid #c2652a;color:#c2652a;">No</div>
-    </div>`);
-}
-
-// ── CYCLING LOGIC ────────────────────────────────────────────────
-
-const POPUP_BUILDERS = [
-  cardGooseCreek,
-  cardHerFantasyBox,
-  cardScentiment,
-  cardBurlebo,
-  cardSimpleModern,
-  cardWellnessCo,
-  cardCarnivore,
+const POPUPS = [
+  { src: 'goose-creek.png',      alt: 'Goose Creek' },
+  { src: 'her-fantasy-box.png',  alt: 'Her Fantasy Box' },
+  { src: 'scentiment.png',       alt: 'Scentiment' },
+  { src: 'burlebo.png',          alt: 'Burlebo' },
+  { src: 'simple-modern.png',    alt: 'Simple Modern' },
+  { src: 'wellness-company.png', alt: 'The Wellness Company' },
+  { src: 'carnivore-snax.png',   alt: 'Carnivore Snax' },
 ];
-const STEP = 3; // ensures no two visible slots show the same popup
+
+const STEP = 3;
 
 function renderToSlot(slotEl, idx) {
-  const card = POPUP_BUILDERS[idx % POPUP_BUILDERS.length]();
+  const img = document.createElement('img');
+  img.src = POPUPS[idx % POPUPS.length].src;
+  img.alt = POPUPS[idx % POPUPS.length].alt;
+  img.className = 'popup-card';
   slotEl.innerHTML = '';
-  slotEl.appendChild(card);
-  return card;
+  slotEl.appendChild(img);
+  return img;
 }
 
 function initSlot(slotId, startIdx, initialDelay) {
   const slotEl = document.getElementById(slotId);
-  let idx = ((startIdx % POPUP_BUILDERS.length) + POPUP_BUILDERS.length) % POPUP_BUILDERS.length;
+  let idx = ((startIdx % POPUPS.length) + POPUPS.length) % POPUPS.length;
 
   renderToSlot(slotEl, idx);
 
@@ -336,7 +124,7 @@ function initSlot(slotId, startIdx, initialDelay) {
     if (existing) {
       existing.classList.add('fade-out');
       setTimeout(() => {
-        idx = (idx + STEP) % POPUP_BUILDERS.length;
+        idx = (idx + STEP) % POPUPS.length;
         const newCard = renderToSlot(slotEl, idx);
         newCard.classList.add('fade-in-start');
         requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -346,7 +134,6 @@ function initSlot(slotId, startIdx, initialDelay) {
     }
   }
 
-  // Each slot cycles every 12 s; staggered 4 s apart → one change every 4 s
   setTimeout(() => setInterval(cycle, 12000), initialDelay);
 }
 
@@ -354,13 +141,9 @@ initSlot('slot-0', 0, 0);
 initSlot('slot-1', 2, 4000);
 initSlot('slot-2', 4, 8000);
 
-// ── CLOCK ────────────────────────────────────────────────────────
 function tick() {
-  const el = document.getElementById('clock-el');
-  const now = new Date();
-  if (el) el.textContent =
-    now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) + ' · ' +
-    now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const now = new Date(); const el = document.getElementById('clock-el');
+  if (el) el.textContent = now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) + ' · ' + now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
 tick();
 setInterval(tick, 30000);
