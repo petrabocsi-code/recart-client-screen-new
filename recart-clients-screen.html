@@ -47,34 +47,34 @@
   }
 
   .popup-slot {
-    position: relative; /* z-index works on positioned flex items */
+    position: relative;
     flex: 0 0 39%;
     min-width: 0;
     overflow: hidden;
-    display: flex;
   }
-  /* left→middle→right stacking: each card sits in front of the one to its left */
-  #slot-0 { align-items: flex-start; padding-top: 5vh;    z-index: 1; }
-  #slot-1 { margin-left: -8.5%; align-items: flex-end;   padding-bottom: 7vh; z-index: 2; }
-  #slot-2 { margin-left: -8.5%; align-items: center;     padding-top: 2vh;    z-index: 3; }
+  /* left→middle→right stacking, overlap via negative margin */
+  #slot-0 { z-index: 1; }
+  #slot-1 { margin-left: -8.5%; z-index: 2; }
+  #slot-2 { margin-left: -8.5%; z-index: 3; }
 
   /* ── POPUP CARDS ── */
+  /* position:absolute so swapping images never causes layout reflow/jump */
   .popup-card {
+    position: absolute;
     width: 100%;
     height: auto;
     max-height: 84vh;
     border-radius: 14px;
     box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
-    display: block;
     transition: opacity 0.55s ease;
   }
-  .popup-card.fade-out {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .popup-card.fade-in-start {
-    opacity: 0;
-  }
+  /* per-slot vertical stagger via top/bottom on the card */
+  #slot-0 .popup-card { top: 5vh; }
+  #slot-1 .popup-card { bottom: 7vh; }
+  #slot-2 .popup-card { top: calc(50% - 2vh); transform: translateY(-50%); }
+
+  .popup-card.fade-out   { opacity: 0; pointer-events: none; }
+  .popup-card.fade-in-start { opacity: 0; }
 </style>
 </head>
 <body>
